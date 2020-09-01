@@ -1,22 +1,20 @@
 <template>
   <div class="home">
-
-      <!-- 轮播图 -->
+    <!-- 轮播图 -->
     <van-swipe class="my-swipe" :autoplay="3000" :indicator-color="color">
       <van-swipe-item v-for="item in lunboData" :key="item.img">
-        <img :src="item.img" />
+        <img class="lunboimg" :src="item.img" />
       </van-swipe-item>
-
     </van-swipe>
-  
+
     <!-- 八宫格 -->
     <van-grid :column-num="4" :border="false">
-      <van-grid-item icon="photo-o" text="文字">
+      <van-grid-item to="/wiring" icon="photo-o" text="文字">
         <img src="../assets/menu10.png" alt />
         <div>数码电器</div>
       </van-grid-item>
 
-      <van-grid-item icon="photo-o" text="文字">
+      <van-grid-item to="/newslist" icon="photo-o" text="文字">
         <img src="../assets/menu12.png" alt />
         <div>乐淘头条</div>
       </van-grid-item>
@@ -52,19 +50,22 @@
       </van-grid-item>
     </van-grid>
     <!-- 分割线 -->
-    <van-divider :style="{ color: 'rgb(74, 74, 74)' , fontSize: '16px', borderColor: 'rgb(167, 172, 178)', padding: '0 16px' }">为你推荐</van-divider>
+    <van-divider
+      :style="{ color: 'rgb(74, 74, 74)' , fontSize: '16px', borderColor: 'rgb(167, 172, 178)', padding: '0 16px' }"
+    >为你推荐</van-divider>
     <div class="rec">
       <!--子推荐 -->
-      <div class="recOne" v-for="item in recommendData" :key="item.id">
-       
-        <!-- <img :src="item.img_url"  alt=""> -->
-        <img v-lazy="item.img_url">
-        <div class="title">
-          <!-- 金士顿（Kingston）DataTraveler SE9 32GB... -->
-          {{ item.title }}
-        </div>
+      <div
+        class="recOne"
+        v-for="item in recommendData"
+        :key="item.id"
+        @click="getwiringDetail(item.id)"
+      >
+        <img v-lazy="item.img_url" />
+        <div class="title">{{ item.title }}</div>
         <div class="price">
-          ￥ {{item.sell_price}} <span>{{item.buy}}人已购买</span>
+          ￥{{item.sell_price}}
+          <span>{{item.buy}}人已购买</span>
         </div>
       </div>
     </div>
@@ -72,50 +73,54 @@
 </template>
 
 <script>
-import { Swipe, SwipeItem, Grid, GridItem, Divider   } from "vant";
+import { Swipe, SwipeItem, Grid, GridItem, Divider } from "vant";
 // 轮播，推荐信息
-import { getLunBoData ,getRecommendData} from "@/api/index.js";
+import { getLunBoData, getRecommendData } from "@/api/index.js";
 // import axios from "axios";
 export default {
-    data(){
-      return{
-          color: "#ccc",
-          // 轮播数据空数组
-          lunboData:[],
-          // 推荐数据空数组
-          recommendData:[]
-          
-      }
+  data() {
+    return {
+      color: "#ccc",
+      // 轮播数据空数组
+      lunboData: [],
+      // 推荐数据空数组
+      recommendData: [],
+    };
+  },
+  components: {
+    "van-swipe": Swipe,
+    "van-swipe-item": SwipeItem,
+    "van-grid": Grid,
+    "van-grid-item": GridItem,
+    "van-divider": Divider,
+  },
+  methods: {
+    // 详情页面路由
+    getwiringDetail(id) {
+      this.$router.push(`/wiringDetail/${id}`);
+      this.$router.push(`/wiringDetailLunbo/${id}`);
+      // alert(`${id}`);
     },
-    components: {
-        "van-swipe": Swipe,
-        "van-swipe-item": SwipeItem,
-        "van-grid": Grid,
-        "van-grid-item": GridItem,
-        "van-divider": Divider,
-       
+
+    //   获取lunbo数据
+    async getLunbo() {
+      var res = await getLunBoData();
+      this.lunboData = res.message;
     },
-    methods:{
-        //   获取lunbo数据
-        async getLunbo() {
-            var res = await getLunBoData();
-            this.lunboData = res.message;
-            
-        },
-        // 获取推荐信息数据
-        async getRecommend(){
-          var {message} = await getRecommendData();
-          this.recommendData = message;
-         
-        },
-        rec(){
-          this.$router.push('/recommend');
-        }
+    // 获取推荐信息数据
+    async getRecommend() {
+      var { message } = await getRecommendData();
+      this.recommendData = message;
     },
-    created() {
-        this.getLunbo();
-        this.getRecommend();
-    }
+  },
+  created() {
+    this.getLunbo();
+    this.getRecommend();
+    // 更改为首页的(顶部)
+    this.$parent.bool = true;
+    // 底部
+    this.$parent.bool2 = true;
+  },
 };
 </script>
 
@@ -126,9 +131,12 @@ export default {
   margin-bottom: 50px;
   // 轮播图
   .my-swipe {
+    // width: 100%;
     height: 200px;
     .van-swipe-item {
-      img {
+      // width: 100%;
+      height: 200px;
+      .lunboimg {
         widows: 100%;
         height: 100%;
       }
@@ -138,14 +146,13 @@ export default {
   .van-grid {
     .van-grid-item {
       background-color: rgb(255, 255, 255);
-      padding: 8px 2px;
+      padding: 6px 2px;
 
       img {
         width: 50%;
       }
 
       text {
-      
         color: #524949;
       }
     }
@@ -153,46 +160,42 @@ export default {
   // 推荐
   .rec {
     display: flex;
-    flex-flow:row wrap;
+    flex-flow: row wrap;
     justify-content: center;
     width: 100%;
     // height: 1200px;
-    .recOne{
+    .recOne {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       margin: 4px;
-      width: 172px;
-      height: 244px;
+      width: 46%;
+      height: 268px;
       border-radius: 10px;
       overflow: hidden;
       background-color: #fff;
-      img{
-        // height: 100%;
-        width: 172px;
+      img {
+        height: 100%;
+        width: 100%;
         height: 172px;
+        margin: auto;
       }
       .title {
         font-size: 12px;
         color: #333;
         text-align: center;
-        
       }
-      .price{
-     
+      .price {
         font-size: 14px;
-        color: #FF5500;
+        color: #ff5500;
         margin: 0 auto;
-        
-        span{
+
+        span {
           font-size: 12px;
           color: #999;
-
         }
       }
     }
   }
 }
-
-
 </style>

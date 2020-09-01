@@ -4,9 +4,12 @@ import App from './App.vue'
 Vue.config.productionTip = false
 import router from './router/router.js'
 
-
+// 解析过滤器
+import '@/util/filter.js';
 // 注册时可以配置额外的选项
-import { Lazyload } from "vant";
+import { Lazyload , Toast} from "vant";
+
+Vue.prototype.$toast = Toast;
 Vue.use(Lazyload, {
   lazyComponent: true,
 });
