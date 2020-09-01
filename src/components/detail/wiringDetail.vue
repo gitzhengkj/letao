@@ -46,7 +46,7 @@
       <van-divider :style="{ color: '#ccc', borderColor: '#ccc', padding: '0 16px' }">介绍</van-divider>
       <!-- <div>{{wiringDetailList.zhaiyao}}</div> -->
     </div>
-      <div id="test" v-html="wiringDetailList.content"></div>
+    <div id="test" v-html="wiringDetailList.content"></div>
   </div>
 </template>
 
@@ -99,7 +99,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scope>
+<style lang="scss" scoped>
 .my-swipe .van-swipe-item {
   color: #fff;
   font-size: 20px;
@@ -170,14 +170,23 @@ export default {
     border-radius: 5px;
     // height: 1128px;
     // background-color: pink;
-   
   }
-  
 }
-#test{
-  
-  img{
+#test {
+  /deep/ img {
+    width: 100% ;
+  }
+  /deep/ table{
     width: 100%;
+    tbody{
+      tr{
+        td{
+          img{
+            width: 100%;
+          }
+        }
+      }
+    }
   }
 }
 

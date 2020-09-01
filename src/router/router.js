@@ -3,15 +3,29 @@ import VueRouter from 'vue-router';
 
 // 使用router
 Vue.use(VueRouter);
-
+// 首页路由
 import home from "@/components/home.vue";
-import shoppingcar from "@/components/shoppingcar.vue";
-import user from "@/components/user.vue";
+// 商品路由
 import wiring from "@/components/eightRattle/wiring.vue";
-import news from "@/components/eightRattle/news.vue";
 import wiringDetail from '@/components/detail/wiringDetail.vue'
 import wiringDetailLunbo from '@/components/detail/wiringDetail.vue'
+// 新闻路由
+import news from "@/components/eightRattle/news.vue";
 import newsDetail from '@/components/detail/newsDetail.vue'
+
+// 美图赏析路由
+import photo from '@/components/eightRattle/photo.vue';
+
+
+
+
+// 购物车页面路由
+import shoppingcar from "@/components/shoppingcar.vue";
+// 个人中心路由
+import user from "@/components/user.vue";
+
+
+
 
 
 var router = new VueRouter({
@@ -25,6 +39,8 @@ var router = new VueRouter({
         {path:'/wiringDetail/:id',component:wiringDetail},
         {path:'/wiringDetailLunbo/:id',component:wiringDetailLunbo},
         {path:'/newsDetail/:id',component:newsDetail ,props:true},
+        {path:'/photo',component:photo},
+
         
     ]
 });

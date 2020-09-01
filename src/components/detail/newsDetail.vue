@@ -112,12 +112,11 @@ export default {
   created() {
     this.getNewsDetailList();
     this.getNewsCommentList();
-    
   },
 };
 </script>
 
-<style lang="scss" scope>
+<style lang="scss" scoped>
 .newDetail {
   background-color: #faf9f9;
   padding: 5px 5px 50px 5px;
@@ -140,8 +139,21 @@ export default {
     }
   }
   .text {
-    img {
+    /deep/ img {
       width: 100%;
+    }
+
+    /deep/ table {
+      width: 100%;
+      tbody {
+        tr {
+          td {
+            img {
+              width: 100%;
+            }
+          }
+        }
+      }
     }
   }
 

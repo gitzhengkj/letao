@@ -19,7 +19,7 @@
         <div>乐淘头条</div>
       </van-grid-item>
 
-      <van-grid-item icon="photo-o" text="文字">
+      <van-grid-item to="/photo" icon="photo-o" text="文字">
         <img src="../assets/menu18.png" alt />
         <div>美图赏析</div>
       </van-grid-item>
