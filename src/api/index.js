@@ -58,3 +58,9 @@ export  async  function getPhotoCateChildrenData(id){
 export  async  function getPhotoCateChildrenLunboData(id){
     return  await instance.get(`/getthumbimages/${id}`);
 }
+
+// 获取购物车商品的信息
+export  async  function getCarData(ids){
+    return  await instance.get(`/getshopcarlist/${ids}`);
+}
+

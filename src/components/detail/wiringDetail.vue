@@ -25,7 +25,7 @@
       </div>
       <div class="goodNumber">
         <span>购买数量：</span>
-        <van-stepper v-model="value" />
+        <van-stepper class="buyNum" v-model="value" />
       </div>
     </div>
     <!-- 其他信息 -->
@@ -47,19 +47,34 @@
       <!-- <div>{{wiringDetailList.zhaiyao}}</div> -->
     </div>
     <div id="test" v-html="wiringDetailList.content"></div>
+
+    <van-goods-action>
+      <van-goods-action-icon icon="chat-o" text="客服" />
+      <van-goods-action-icon icon="cart-o" text="购物车" :badge="$store.getters.carTotal" to="/shoppingcar" />
+      <van-goods-action-button @click="addGoodsToCar"  color="#FF9418" type="warning" text="加入购物车" />
+      <van-goods-action-button color="#FD5632" type="danger" text="立即购买" />
+    </van-goods-action>
   </div>
 </template>
 
 <script>
 import { getWiringDetailDate } from "@/api/index.js";
 import { getWiringDetailLunboDate } from "@/api/index.js";
-import { Divider, Stepper, Swipe, SwipeItem } from "vant";
+import {
+  Divider,
+  Stepper,
+  Swipe,
+  SwipeItem,
+  GoodsAction,
+  GoodsActionIcon,
+  GoodsActionButton,
+} from "vant";
 export default {
   data() {
     return {
       color: "#ccc",
       value: 1,
-      wiringDetailList: "",
+      wiringDetailList: {},
       wiringDetailLunboList: [],
       // html:
     };
@@ -68,14 +83,26 @@ export default {
   methods: {
     async getWiringDetailList() {
       var id = this.$route.params.id;
-      var res = await getWiringDetailDate(id);
-      this.wiringDetailList = res.message;
+      var {message} = await getWiringDetailDate(id);
+      this.wiringDetailList = message;
+      // console.log(message);
     },
     async getWiringDetailLunboList() {
       var id = this.$route.params.id;
       var res1 = await getWiringDetailLunboDate(id);
       this.wiringDetailLunboList = res1.message;
     },
+    // 加入商品到购物车
+    addGoodsToCar(){
+      var goods = {
+        id:this.wiringDetailList.id,
+        number:this.value,
+        price:this.wiringDetailList.sell_price,
+        selected:true
+      };
+      this.$store.commit('addCar',goods);
+      
+    }
   },
   created() {
     this.getWiringDetailList();
@@ -95,6 +122,9 @@ export default {
     "van-stepper": Stepper,
     "van-swipe": Swipe,
     "van-swipe-item": SwipeItem,
+    "van-goods-action": GoodsAction,
+    "van-goods-action-icon": GoodsActionIcon,
+    "van-goods-action-button": GoodsActionButton,
   },
 };
 </script>
@@ -120,6 +150,7 @@ export default {
     border-radius: 5px;
   }
   .textDetail {
+    height: 155px;
     margin: 8px;
     border-radius: 5px;
     background-color: #fff;
@@ -150,6 +181,9 @@ export default {
     .goodNumber {
       display: flex;
       margin-left: 5px;
+      .buyNum {
+        padding-bottom: 10px;
+      }
       span {
         font-size: 16px;
         color: #333;
@@ -166,7 +200,7 @@ export default {
   }
 
   .data {
-    padding: 5px 5px 50px 5px;
+    padding: 5px 5px 5px 5px;
     border-radius: 5px;
     // height: 1128px;
     // background-color: pink;
@@ -174,15 +208,17 @@ export default {
 }
 #test {
   /deep/ img {
-    width: 100% ;
-  }
-  /deep/ table{
     width: 100%;
-    tbody{
-      tr{
-        td{
-          img{
+  }
+  /deep/ table {
+    width: 100%;
+    height: 200px;
+    tbody {
+      tr {
+        td {
+          img {
             width: 100%;
+            height: 200px;
           }
         }
       }

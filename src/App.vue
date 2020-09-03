@@ -26,12 +26,7 @@
       </div>
       <!-- 购物车底部 -->
       <div v-else>
-        <van-goods-action>
-          <van-goods-action-icon icon="chat-o" text="客服" />
-            <van-goods-action-icon icon="cart-o" text="购物车" badge="12" to="/shoppingcar"  />
-          <van-goods-action-button color="#FF9418" type="warning" text="加入购物车"   />
-          <van-goods-action-button color="#FD5632" type="danger" text="立即购买" />
-        </van-goods-action>
+        
       </div>
     </div>
   </div>
@@ -44,9 +39,7 @@ import {
   TabbarItem,
   Sticky,
   NavBar,
-  GoodsAction,
-  GoodsActionIcon,
-  GoodsActionButton,
+ 
 } from "vant";
 
 export default {
@@ -64,17 +57,16 @@ export default {
     "van-tabbar-item": TabbarItem,
     "van-sticky": Sticky,
     "van-nav-bar": NavBar,
-    "van-goods-action":GoodsAction,
-    "van-goods-action-icon":GoodsActionIcon,
-    "van-goods-action-button":GoodsActionButton
+    
   },
 };
 </script>
 
 <style lang='scss'>
 #app {
+  background-color: #EEEEEE;
   min-width: 320px;
-  max-width: 750px;
+  // max-width: 750px;
   margin: auto;
   .header {
     display: flex;

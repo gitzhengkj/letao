@@ -131,14 +131,13 @@ export default {
   margin-bottom: 50px;
   // 轮播图
   .my-swipe {
-    // width: 100%;
-    height: 200px;
-    .van-swipe-item {
-      // width: 100%;
+    /deep/.van-swipe__track {
+      width: 100%;
       height: 200px;
+
       .lunboimg {
-        widows: 100%;
-        height: 100%;
+        width: 100%;
+        height: 200px;
       }
     }
   }

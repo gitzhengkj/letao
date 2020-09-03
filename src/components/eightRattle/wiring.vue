@@ -43,7 +43,7 @@ export default {
   methods: {
       getwiringDetail(id){
           this.$router.push(`/wiringDetail/${id}`);
-          this.$router.push(`/wiringDetailLunbo/${id}`);
+          // this.$router.push(`/wiringDetailLunbo/${id}`);
       },
     async getWiringList() {
       var res = await getWiringData(this.pageindex);
