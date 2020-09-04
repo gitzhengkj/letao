@@ -30,9 +30,7 @@
     </div>
     <!-- 其他信息 -->
     <div class="textDetail">
-      <div class="goodName">
-        <!-- <span>Apple iMac MF883CH/A 21.5英寸一体机电脑</span> -->
-      </div>
+      <div class="goodName"></div>
       <!-- 分割线 -->
       <van-divider :style="{ color: '#ccc', borderColor: '#ccc', padding: '0 16px' }">其他信息</van-divider>
       <div class="otherData">
@@ -50,8 +48,13 @@
 
     <van-goods-action>
       <van-goods-action-icon icon="chat-o" text="客服" />
-      <van-goods-action-icon icon="cart-o" text="购物车" :badge="$store.getters.carTotal" to="/shoppingcar" />
-      <van-goods-action-button @click="addGoodsToCar"  color="#FF9418" type="warning" text="加入购物车" />
+      <van-goods-action-icon
+        icon="cart-o"
+        text="购物车"
+        :badge="$store.getters.carTotal"
+        to="/shoppingcar"
+      />
+      <van-goods-action-button @click="addGoodsToCar" color="#FF9418" type="warning" text="加入购物车" />
       <van-goods-action-button color="#FD5632" type="danger" text="立即购买" />
     </van-goods-action>
   </div>
@@ -83,7 +86,7 @@ export default {
   methods: {
     async getWiringDetailList() {
       var id = this.$route.params.id;
-      var {message} = await getWiringDetailDate(id);
+      var { message } = await getWiringDetailDate(id);
       this.wiringDetailList = message;
       // console.log(message);
     },
@@ -93,16 +96,15 @@ export default {
       this.wiringDetailLunboList = res1.message;
     },
     // 加入商品到购物车
-    addGoodsToCar(){
+    addGoodsToCar() {
       var goods = {
-        id:this.wiringDetailList.id,
-        number:this.value,
-        price:this.wiringDetailList.sell_price,
-        selected:true
+        id: this.wiringDetailList.id,
+        number: this.value,
+        price: this.wiringDetailList.sell_price,
+        selected: true,
       };
-      this.$store.commit('addCar',goods);
-      
-    }
+      this.$store.commit("addCar", goods);
+    },
   },
   created() {
     this.getWiringDetailList();
@@ -110,13 +112,8 @@ export default {
     this.$parent.title = "商品详情";
     this.$parent.bool = false;
     this.$parent.bool2 = false;
-    // var id = this.$route.params.id;
-    // console.log(id);
   },
-  //   computed(){
-  //       document.getElementById('test').innerHTML("");
 
-  //   }
   components: {
     "van-divider": Divider,
     "van-stepper": Stepper,
@@ -150,13 +147,12 @@ export default {
     border-radius: 5px;
   }
   .textDetail {
-    height: 155px;
     margin: 8px;
     border-radius: 5px;
     background-color: #fff;
     margin: 10px auto;
 
-    height: 144px;
+    height: 160px;
     .goodName {
       padding: 5px;
 
@@ -202,17 +198,16 @@ export default {
   .data {
     padding: 5px 5px 5px 5px;
     border-radius: 5px;
-    // height: 1128px;
-    // background-color: pink;
   }
 }
 #test {
   /deep/ img {
     width: 100%;
+    height: 100%;
   }
   /deep/ table {
     width: 100%;
-    height: 200px;
+    height: 100%;
     tbody {
       tr {
         td {

@@ -22,7 +22,7 @@
         </div>
         <div class="img">
           <!-- 图片 -->
-          <img src="item.thumb_path" alt />
+          <img :src="item.thumb_path" alt />
         </div>
         <div class="text-price-num-del">
           <div class="text">{{item.title}}</div>
@@ -46,7 +46,7 @@
     <div class="nullShop" v-else>
       <h3>
         您的购物车没有商品，去
-        <a href>首页</a>
+        <router-link to="/home">首页</router-link>
         逛逛吧
       </h3>
       <hr />
@@ -175,8 +175,8 @@ body {
         width: 50px;
         height: 50px;
         img {
-          widows: 100%;
-          height: 100%;
+          width: 50px;
+          height: 50px;
         }
       }
       .text-price-num-del {
@@ -191,6 +191,7 @@ body {
         }
         .price-num-del {
           display: flex;
+          justify-content: space-between;
           .price {
             margin: auto 7px;
             color: red;
@@ -199,9 +200,12 @@ body {
           }
           .num {
             margin: auto 10px;
+
+            
           }
           .del {
             border: 0px;
+            margin-right: 10px;
           }
         }
       }
