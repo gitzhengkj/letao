@@ -14,32 +14,50 @@
     </div>
 
     <div class="box3">
-         <van-cell title="提交反馈" is-link />
-         <van-cell title="关于乐淘" value="v1.0.0" size="large" />
-         <van-cell value="内容" />
+      <van-cell title="提交反馈" is-link />
+      <van-cell title="关于乐淘" value="v1.0.0" size="large" />
+      <van-cell value="内容" />
     </div>
 
     <div class="footer">
-        <van-button class="van-button" type="primary"    block>退出登录</van-button>
+      <van-button class="van-button" type="primary" @click="outLogin" block>退出登录</van-button>
     </div>
   </div>
 </template>
 
 <script>
-import { Cell,Button  } from "vant";
+import { Cell, Button, Dialog } from "vant";
+import { isLogin } from "@/api/index.js";
 export default {
   data() {
     return {};
   },
-  methods: {},
+  methods: {
+    outLogin() {
+      Dialog.confirm({
+        title: "退出登录",
+        message: "确定要退出吗?",
+      })
+        .then(() => {
+          // 退出登录成功
+          this.$router.push('/login');
+
+        })
+        .catch(() => {
+          // 不退出
+        });
+    },
+  },
   created() {
+    isLogin();
     this.$parent.title = "个人中心";
+    // this.$parent.title.left-text="返回";
     this.$parent.bool = false;
     this.$parent.bool2 = false;
   },
   components: {
     "van-cell": Cell,
-    "van-button" :Button
+    "van-button": Button,
   },
 };
 </script>
@@ -74,23 +92,18 @@ export default {
       color: #5d5555;
     }
   }
-  .box2{
-      margin-bottom: 20px;
+  .box2 {
+    margin-bottom: 20px;
   }
   .footer {
-
-      width: 100%;
-      position: fixed;
-      bottom: 0px;
-    .van-button{
-        color:black;
-        background-color: #fff;
-        border: 0px;
-
-
+    width: 100%;
+    position: fixed;
+    bottom: 0px;
+    .van-button {
+      color: black;
+      background-color: #fff;
+      border: 0px;
     }
-      
-      
   }
 }
 </style>

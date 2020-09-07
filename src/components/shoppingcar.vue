@@ -2,34 +2,36 @@
   <div class="shoppingCar">
     <!-- 购物车有商品时 -->
     <div class="shoppingList" v-if="hasGoods">
-      <van-divider
-        :style="{ color: '#A1A6AD', borderColor: '#A1A6AD', padding: '0 16px' }"
-      >收货地址</van-divider>
-      <van-address-list
-        v-model="chosenAddressId"
-        :list="list"
-        default-tag-text="默认"
-       
-      />
-      <van-divider
-        :style="{ color: '#A1A6AD', borderColor: '#A1A6AD', padding: '0 16px' }"
-      >购买的商品 </van-divider>
+      <van-divider :style="{ color: '#A1A6AD', borderColor: '#A1A6AD', padding: '0 16px' }">收货地址</van-divider>
+      <van-address-list v-model="chosenAddressId" :list="list" default-tag-text="默认" />
+      <van-divider :style="{ color: '#A1A6AD', borderColor: '#A1A6AD', padding: '0 16px' }">购买的商品</van-divider>
       <!-- 商品列表 -->
       <div class="shop" v-for="(item,index) in carData" :key="item.id">
         <div class="button">
           <!-- 开关 -->
-          <van-switch @change="switchChange(item.id,$store.getters.getGoodsSelected[item.id])" v-model="$store.getters.getGoodsSelected[item.id]" />
+          <van-switch
+            @change="switchChange(item.id,$store.getters.getGoodsSelected[item.id])"
+            v-model="$store.getters.getGoodsSelected[item.id]"
+          />
         </div>
         <div class="img">
           <!-- 图片 -->
-          <img :src="item.thumb_path" alt />
         </div>
         <div class="text-price-num-del">
           <div class="text">{{item.title}}</div>
           <div class="price-num-del">
             <div class="price">￥{{item.sell_price}}</div>
-            <van-stepper class="num" @change="changeNumber(item.id,$store.getters.getGoodsNumber[item.id])" v-model="$store.getters.getGoodsNumber[item.id]" />
-            <van-button class="del" size="small" @click="del(item.id)" style="background-color:red">删除</van-button>
+            <van-stepper
+              class="num"
+              @change="changeNumber(item.id,$store.getters.getGoodsNumber[item.id])"
+              v-model="$store.getters.getGoodsNumber[item.id]"
+            />
+            <van-button
+              class="del"
+              size="small"
+              @click="del(item.id,index)"
+              style="background-color:red"
+            >删除</van-button>
           </div>
         </div>
       </div>
@@ -46,8 +48,7 @@
     <div class="nullShop" v-else>
       <h3>
         您的购物车没有商品，去
-        <router-link to="/home">首页</router-link>
-        逛逛吧
+        <router-link to="/home">首页</router-link>逛逛吧
       </h3>
       <hr />
       <div class="img">
@@ -74,10 +75,9 @@ import {
 export default {
   data() {
     return {
-      
       // value: 1,
       checked: true,
-     
+
       carData: [],
       chosenAddressId: "1",
       list: [
@@ -91,42 +91,36 @@ export default {
       ],
     };
   },
-  computed:{
-    hasGoods:function(){
+  computed: {
+    hasGoods: function () {
       return this.carData.length > 0;
-    }
+    },
   },
   methods: {
-    
-    
     async getCarGoods() {
       var ids = this.$store.getters.getGoodsIds;
-      if(!ids){
-        return ;
+      if (!ids) {
+        return;
       }
       var { message } = await getCarData(ids);
       // console.log(message);
       this.carData = message;
     },
     // 删除购物车商品
-    del(good_id,index){
+    del(good_id, index) {
       // 调用vuex的mutations
-      this.$store.commit('delCarGoods',good_id);
-        this.carData.splice(index,1);
+      this.$store.commit("delCarGoods", good_id);
+      this.carData.splice(index, 1);
     },
     // 更改按钮
-    switchChange(goods_id,selected){
-      // 调用vuex 
-      this.$store.commit('changeGoodsSelected',{goods_id,selected});
+    switchChange(goods_id, selected) {
+      // 调用vuex
+      this.$store.commit("changeGoodsSelected", { goods_id, selected });
     },
     //修改商品数量
-    changeNumber(goods_id,number){
-      // console.log(goods_id,number);
-      this.$store.commit('changeGoodsNumber',{goods_id,number})
-
-    }
-
-
+    changeNumber(goods_id, number) {
+      this.$store.commit("changeGoodsNumber", { goods_id, number });
+    },
   },
   created() {
     this.$parent.title = "购物车";
@@ -200,8 +194,6 @@ body {
           }
           .num {
             margin: auto 10px;
-
-            
           }
           .del {
             border: 0px;

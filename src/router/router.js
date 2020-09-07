@@ -21,9 +21,13 @@ import photo from '@/components/eightRattle/photo.vue';
 
 // 购物车页面路由
 import shoppingcar from "@/components/shoppingcar.vue";
+
+
 // 个人中心路由
 import user from "@/components/user.vue";
-
+// 登录页面
+import login from '@/components/users/login.vue';
+import register from '@/components/users/register.vue';
 
 
 
@@ -40,7 +44,9 @@ var router = new VueRouter({
         {path:'/wiringDetailLunbo/:id',component:wiringDetailLunbo},
         {path:'/newsDetail/:id',component:newsDetail ,props:true},
         {path:'/photo',component:photo},
-
+        {path:'/login',component:login},
+        {path:'/register',component:register},
+        
         
     ]
 });

@@ -16,7 +16,7 @@ const Store = new Vuex.Store({
             // 加入之前判断之前是否有同名id的商品
             var index;
             var hasSomeGoods = state.carDate.some(function (item, i) {
-                console.log(i);
+                // console.log(i);
                 index = i;
                 return item.id === goods.id;
             })
@@ -32,13 +32,17 @@ const Store = new Vuex.Store({
         },
         // 删除购物车商品
         delCarGoods(state, goods_id) {
-            var index;
+            var index=0;      
             var isFind = state.carDate.some((v, k) => {
-                if (v.id === goods_id) {
+                // console.log(v.id == goods_id);
+                if (v.id == goods_id) {
+
                     index = k;
+                    return true;
                 }
-                return true;
+            
             });
+            
             // 通过下标删除数组元素
             if (isFind) {
                 state.carDate.splice(index, 1);
@@ -100,12 +104,13 @@ const Store = new Vuex.Store({
         // 获取购物车商品选中的数量
         getGoodsSelectedNumber(state) {
             var total = 0;
-            console.log(state);
+            // console.log(state);
             state.carDate.map(v => {
                 if (v.selected === true) {
 
                     total += v.number;
                 }
+                // console.log(total);
             });
             return total;
         },

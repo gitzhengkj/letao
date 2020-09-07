@@ -64,3 +64,17 @@ export  async  function getCarData(ids){
     return  await instance.get(`/getshopcarlist/${ids}`);
 }
 
+
+// 获取用户(post请求)
+export async function userLogin(data){
+    return await instance.post(`/login`,data);
+}
+
+export async function isLogin(){
+    var token = localStorage.getItem('token');
+    try{
+        await instance.post(`/checktoken?token=${token}`);
+    }catch(e){
+
+    }
+}

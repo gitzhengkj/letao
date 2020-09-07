@@ -33,6 +33,7 @@
 </template>
 
 <script>
+// import { isLogin } from '@/api/index.js'
 import {
   Search,
   Tabbar,
@@ -51,6 +52,9 @@ export default {
       bool2: true,
     };
   },
+  created(){
+    // isLogin();
+  },
   components: {
     Search,
     "van-tabbar": Tabbar,
@@ -66,8 +70,9 @@ export default {
 #app {
   background-color: #EEEEEE;
   min-width: 320px;
-  // max-width: 750px;
+  max-width: 750px;
   margin: auto;
+  height: 735px;
   .header {
     display: flex;
     justify-content: space-between;
