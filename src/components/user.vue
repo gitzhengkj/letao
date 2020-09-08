@@ -10,7 +10,7 @@
     <div class="box2">
       <van-cell title="修改密码" is-link />
       <van-cell title="我的订单" is-link />
-      <van-cell title="地址管理" is-link />
+      <van-cell title="地址管理" to="/addressManager" is-link />
     </div>
 
     <div class="box3">
@@ -27,7 +27,7 @@
 
 <script>
 import { Cell, Button, Dialog } from "vant";
-import { isLogin } from "@/api/index.js";
+// import { isLogin } from "@/api/index.js";
 export default {
   data() {
     return {};
@@ -49,7 +49,7 @@ export default {
     },
   },
   created() {
-    isLogin();
+    // isLogin();
     this.$parent.title = "个人中心";
     // this.$parent.title.left-text="返回";
     this.$parent.bool = false;

@@ -19,6 +19,7 @@ import photo from '@/components/eightRattle/photo.vue';
 
 
 
+
 // 购物车页面路由
 import shoppingcar from "@/components/shoppingcar.vue";
 
@@ -28,6 +29,9 @@ import user from "@/components/user.vue";
 // 登录页面
 import login from '@/components/users/login.vue';
 import register from '@/components/users/register.vue';
+import addressManager from '@/components/address/addressManager.vue';
+import addressadd from '@/components/address/addressadd.vue';
+import addressEdit from '@/components/address/addressEdit.vue';
 
 
 
@@ -46,6 +50,9 @@ var router = new VueRouter({
         {path:'/photo',component:photo},
         {path:'/login',component:login},
         {path:'/register',component:register},
+        {path:'/addressManager',component:addressManager},
+        {path:'/addressadd',component:addressadd},
+        {path:'/addressEdit/:addressInfo',component:addressEdit},
         
         
     ]

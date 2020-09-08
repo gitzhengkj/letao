@@ -72,7 +72,7 @@ export default {
   min-width: 320px;
   max-width: 750px;
   margin: auto;
-  height: 735px;
+  // height: 735px;
   .header {
     display: flex;
     justify-content: space-between;
