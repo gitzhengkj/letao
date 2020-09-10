@@ -94,3 +94,7 @@ export async function  addUserAddressData (userid,addressInfo) {
 export async function  deleteUserAddressData (addessid) {
     return await instance.post(`/deladdress/${addessid}`)
 }
+// 编辑用户收货地址
+export async function editUserAddressData(addressid,addressInfo){
+    return await instance.post(`/updateaddress/${addressid}`,addressInfo);
+}

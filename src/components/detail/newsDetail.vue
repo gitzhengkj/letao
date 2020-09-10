@@ -110,8 +110,12 @@ export default {
   },
 
   created() {
+    this.$parent.title = "新闻详情";
     this.getNewsDetailList();
     this.getNewsCommentList();
+  },
+  activated: function () {
+    this.$parent.title = "新闻详情";
   },
 };
 </script>

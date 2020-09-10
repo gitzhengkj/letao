@@ -143,9 +143,9 @@ export default {
 <style lang="scss" scoped>
 body {
   background-color: #f1f1f1;
-  // height: 100%;
 }
 .shoppingCar {
+  height: 620px;
   .van-address-list__bottom {
     visibility: hidden;
   }

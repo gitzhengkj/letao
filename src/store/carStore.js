@@ -8,9 +8,15 @@ Vue.use(Vuex);
 var carDates = JSON.parse(localStorage.getItem('carData')) || [];
 const Store = new Vuex.Store({
     state: {
-        carDate: carDates
+        carDate: carDates,
+        isPending:false
     },
     mutations: {
+
+        // 修改ispending状态
+        changeIsPending(state,bool){
+            state.isPending = bool;
+        },
         addCar(state, goods) {
             // some(找到后停止匹配)
             // 加入之前判断之前是否有同名id的商品

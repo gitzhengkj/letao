@@ -30,7 +30,7 @@ import { getNewsListData } from "@/api/index.js";
 // 引入vant下拉刷新插件
 import { PullRefresh, Toast, List } from "vant";
 export default {
-  name: "newslist",
+  name: "newslist-component",
   data() {
     return {
       newslist: [],
@@ -90,11 +90,19 @@ export default {
     this.$parent.title = "新闻列表";
     this.$parent.bool = false;
   },
+  activated:function () {
+    // 更改通栏结构
+    this.getNewsList();
+    this.$parent.title = "新闻列表";
+    this.$parent.bool = false;
+    this.$parent.bool2 = true;
+  },
   components: {
     // 刷新
     "van-pull-refresh": PullRefresh,
     "van-list": List,
   },
+  
 };
 </script>
 

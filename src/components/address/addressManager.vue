@@ -27,7 +27,7 @@ export default {
     async loadAddress(){
         var userInfo = JSON.parse( localStorage.getItem('userInfo'));
         var userAddress = await userAddressData(userInfo.id);
-        console.log(userAddress);
+        // console.log(userAddress);
         var  _temp = this;
 
         userAddress.map(v=>{
@@ -44,7 +44,7 @@ export default {
         });
         // 把从本地存储的数据放给list回显
         this.list = userAddress;
-        console.log(this.list);
+        // console.log(this.list);
     
     },
 

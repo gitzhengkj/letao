@@ -8,7 +8,7 @@
     >
       <template #content>
         <!-- 子组件 -->
-        <news v-if="isShowNews" @click-img='bigphoto' :photochildren="items[activeIndex].children"></news>
+        <news v-if="isShowNews" @click-img="bigphoto" :photochildren="items[activeIndex].children"></news>
       </template>
     </van-tree-select>
   </div>
@@ -16,10 +16,15 @@
 
 <script>
 // 引入vant插件
-import { TreeSelect ,ImagePreview} from "vant";
+import { TreeSelect, ImagePreview } from "vant";
 import news from "@/components/common/news.vue";
-import { getPhotoCateData, getPhotoCateChildrenData ,getPhotoCateChildrenLunboData} from "@/api/index.js";
+import {
+  getPhotoCateData,
+  getPhotoCateChildrenData,
+  getPhotoCateChildrenLunboData,
+} from "@/api/index.js";
 export default {
+  name: "photo-component",
   data() {
     return {
       // 分类选择插件
@@ -37,7 +42,7 @@ export default {
   },
   components: {
     "van-tree-select": TreeSelect,
-     [ImagePreview.Component.name]: ImagePreview.Component,
+    [ImagePreview.Component.name]: ImagePreview.Component,
     news,
   },
   methods: {
@@ -85,21 +90,25 @@ export default {
       this.isShowNews = true;
     },
 
-    async bigphoto(id){
-      var {message} = await getPhotoCateChildrenLunboData(id);
-      if(!message.length){
-        this.$toast('暂时还没有图片');
+    async bigphoto(id) {
+      var { message } = await getPhotoCateChildrenLunboData(id);
+      if (!message.length) {
+        this.$toast("暂时还没有图片");
         return;
       }
       var tempArr = [];
-      message.map(v=>{
+      message.map((v) => {
         tempArr.push(v.src);
       });
       ImagePreview(tempArr);
-
-    }
+    },
   },
   created() {
+    this.$parent.title = "美图赏析";
+    this.$parent.bool = false;
+    this.getPhotoCate();
+  },
+  activated: function () {
     this.$parent.title = "美图赏析";
     this.$parent.bool = false;
     this.getPhotoCate();

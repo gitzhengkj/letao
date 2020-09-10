@@ -31,6 +31,7 @@ import { getWiringData } from "@/api/index.js";
 // 引入vant下拉刷新插件
 import { PullRefresh, Toast, List } from "vant";
 export default {
+  name:"wiring-component",
   data() {
     return {
       wiringList: [],
@@ -80,6 +81,11 @@ export default {
 
   created() {
     this.getWiringList();
+    this.$parent.title = "商品列表";
+    this.$parent.bool = false;
+    this.$parent.bool2 = true;
+  },
+  activated:function(){
     this.$parent.title = "商品列表";
     this.$parent.bool = false;
     this.$parent.bool2 = true;

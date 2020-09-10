@@ -78,6 +78,7 @@ import { Swipe, SwipeItem, Grid, GridItem, Divider } from "vant";
 import { getLunBoData, getRecommendData } from "@/api/index.js";
 // import axios from "axios";
 export default {
+  name: "home-component",
   data() {
     return {
       color: "#ccc",
@@ -98,7 +99,7 @@ export default {
     // 详情页面路由
     getwiringDetail(id) {
       this.$router.push(`/wiringDetail/${id}`);
-      this.$router.push(`/wiringDetailLunbo/${id}`);
+      // this.$router.push(`/wiringDetailLunbo/${id}`);
       // alert(`${id}`);
     },
 
@@ -116,6 +117,12 @@ export default {
   created() {
     this.getLunbo();
     this.getRecommend();
+    // 更改为首页的(顶部)
+    this.$parent.bool = true;
+    // 底部
+    this.$parent.bool2 = true;
+  },
+  activated: function () {
     // 更改为首页的(顶部)
     this.$parent.bool = true;
     // 底部
