@@ -32,6 +32,7 @@ import register from '@/components/users/register.vue';
 import addressManager from '@/components/address/addressManager.vue';
 import addressadd from '@/components/address/addressadd.vue';
 import addressEdit from '@/components/address/addressEdit.vue';
+import order from '@/components/order/order.vue';
 
 
 
@@ -53,6 +54,7 @@ var router = new VueRouter({
         {path:'/addressManager',component:addressManager},
         {path:'/addressadd',component:addressadd},
         {path:'/addressEdit/:addressInfo',component:addressEdit},
+        {path:'/order',component:order},
         
         
     ]

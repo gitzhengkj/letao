@@ -38,7 +38,11 @@
       <van-cell icon="cash-back-record" title="微信支付" />
 
       <!-- 提交订单操作 -->
-      <van-submit-bar :price="$store.getters.getGoodsSelectedPrice" button-text="订单支付">
+      <van-submit-bar
+        :price="$store.getters.getGoodsSelectedPrice"
+        button-text="订单支付"
+        @submit="onSubmit"
+      >
         <template #default>共{{$store.getters.getGoodsSelectedNumber}}件商品</template>
         <template #tip>默认支持微信支付</template>
       </van-submit-bar>
@@ -62,7 +66,8 @@
 </template>
 
 <script>
-import { getCarData } from "@/api/index.js";
+import { getCarData, isLogin, commitOrder } from "@/api/index.js";
+import { userInfo, genOrderId } from "@/util/tool.js";
 import {
   Divider,
   AddressList,
@@ -82,11 +87,11 @@ export default {
       chosenAddressId: "1",
       list: [
         {
-          id: "1",
+          id: 2,
           name: "张三",
           tel: "13000000000",
           address: "浙江省杭州市西湖区文三路 138 号东方通信大厦 7 楼 501 室",
-          isDefault: false,
+          isDefault: true,
         },
       ],
     };
@@ -95,8 +100,46 @@ export default {
     hasGoods: function () {
       return this.carData.length > 0;
     },
+    number: function () {
+      return this.$store.getters.getGoodsSelectedNumber;
+    },
+    total_price: function () {
+      return this.$store.getters.getGoodsSelectedPrice;
+    },
+    goods_ids: function () {
+      return this.$store.getters.getSelectedGoodsIds;
+    },
   },
   methods: {
+    // 提交订单并支付
+    async onSubmit() {
+      // 准备订单数据，校验
+      var user = userInfo();
+      if (user === false) {
+        this.$router.push("/login");
+      }
+      // 调用后台接口
+      var order_id = genOrderId(); //用户生成订单号
+      var orderData = {
+        user_id: user.id,
+        order_id: order_id,
+        address_id: this.list[0].id,
+        total_price: this.total_price,
+        number: this.number,
+        goods_ids: this.goods_ids,
+      };
+      // 调用后台接口，获取支付url，用于唤醒微信支付
+      var res = await commitOrder(orderData);
+      console.log(res);
+      var weixinUrl= res.data;
+      
+      location.href = weixinUrl;
+      
+
+      // 成功清空购物车
+      localStorage.removeItem('carData');
+    },
+
     async getCarGoods() {
       var ids = this.$store.getters.getGoodsIds;
       if (!ids) {
@@ -123,6 +166,8 @@ export default {
     },
   },
   created() {
+    // 检测是否有登录
+    isLogin();
     this.$parent.title = "购物车";
     this.$parent.bool = false;
     this.$parent.bool2 = true;

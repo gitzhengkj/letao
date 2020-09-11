@@ -49,7 +49,7 @@ export default {
       if (status == 0) {
         // this.$router.push("/addressManager");
         // 成功后直接退到上一级
-        this.$router.go(-1);
+        this.$router.go(-1); 
       }
     },
     async onDelete() {

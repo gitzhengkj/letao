@@ -70,6 +70,14 @@ export async function userLogin(data){
     return await instance.post(`/login`,data);
 }
 
+// 获取用户(post请求)
+export async function userRegister(data){
+    return await instance.post(`/register`,data);
+}
+
+
+
+
 export async function isLogin(){
     var token = localStorage.getItem('token');
     try{
@@ -97,4 +105,18 @@ export async function  deleteUserAddressData (addessid) {
 // 编辑用户收货地址
 export async function editUserAddressData(addressid,addressInfo){
     return await instance.post(`/updateaddress/${addressid}`,addressInfo);
+}
+
+
+// 提交订单接口
+export async function  commitOrder (orderData) {
+    console.log(orderData);
+    return await instance.post(`/commitorder`,orderData)
+}
+
+
+
+// 获取用户的订单数据
+export async function  userOrder (user_id) {
+    return await instance.post(`/userorder/${user_id}`)
 }

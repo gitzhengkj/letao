@@ -7,8 +7,8 @@
         <Search placeholder="请输入搜索关键词"></Search>
       </div>
 
-      <div v-else>
-        <van-nav-bar :title="title" left-text="返回" left-arrow @click-left="$router.go(-1)" />
+      <div v-else >
+        <van-nav-bar :title="title" left-text="返回" left-arrow @click-left="$router.back()" />
       </div>
     </van-sticky>
 

@@ -9,7 +9,7 @@
 
     <div class="box2">
       <van-cell title="修改密码" is-link />
-      <van-cell title="我的订单" is-link />
+      <van-cell title="我的订单" to="/order" is-link />
       <van-cell title="地址管理" to="/addressManager" is-link />
     </div>
 
@@ -40,6 +40,8 @@ export default {
       })
         .then(() => {
           // 退出登录成功
+          localStorage.removeItem('token');
+          localStorage.removeItem('userInfo');
           this.$router.push('/login');
 
         })

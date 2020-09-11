@@ -131,7 +131,13 @@ const Store = new Vuex.Store({
                 }
             });
             return totalPrice * 100;
-        }
+        },
+        getSelectedGoodsIds(state) {
+            var ids = [];
+            state.carDate.map(v => v.selected && ids.push(v.id));
+            var idStr = ids.join(',');
+            return idStr;
+        },
 
     }
 })
